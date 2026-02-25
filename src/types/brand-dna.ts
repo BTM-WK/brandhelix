@@ -1,11 +1,8 @@
-// Brand DNA types - 8-Layer structure
-// Will be fully defined in Phase 1 Session 2
-
 export interface BrandDNA {
   id: string;
   projectId: string;
   layers: BrandDNALayers;
-  completenessScore: number;
+  completenessScore: number; // 0-100
   createdAt: string;
   updatedAt: string;
 }
@@ -21,52 +18,104 @@ export interface BrandDNALayers {
   creativeStyle?: CreativeStyle;
 }
 
+// Layer 1: Company Identity
 export interface CompanyIdentity {
   companyName: string;
   industry: string;
   foundedYear?: number;
+  employeeCount?: string;
+  annualRevenue?: string;
   mainProducts: string[];
   businessModel: string;
+  missionStatement?: string;
 }
 
+// Layer 2: Brand Core
 export interface BrandCore {
   brandName: string;
   brandSlogan?: string;
+  brandStory?: string;
   coreValues: string[];
-  brandPersonality: string[];
-  usp: string;
+  brandPersonality: string[]; // e.g., ['trustworthy', 'innovative']
+  brandPromise?: string;
+  usp: string; // Unique Selling Proposition
 }
 
+// Layer 3: Target Audience
 export interface TargetAudience {
   primaryAge: string;
+  gender?: string;
+  location?: string;
+  income?: string;
   interests: string[];
   painPoints: string[];
   buyingMotivation: string[];
+  mediaConsumption?: string[];
 }
 
+// Layer 4: Visual Identity
 export interface VisualIdentity {
   primaryColors: string[];
-  designTone: string;
+  secondaryColors?: string[];
+  logoUrl?: string;
+  fontFamily?: string;
+  imageStyle?: string; // e.g., 'photography', 'illustration'
+  designTone: string; // references DesignToneId from style.ts
 }
 
+// Layer 5: Verbal Identity
 export interface VerbalIdentity {
   toneOfVoice: string[];
+  writingStyle?: string;
   keyMessages: string[];
-  copyStyle: string;
+  forbiddenWords?: string[];
+  copyStyle: string; // references CopyStyleId from style.ts
+  hashtags?: string[];
 }
 
+// Layer 6: Competitive Position
 export interface CompetitivePosition {
-  directCompetitors: { name: string; websiteUrl?: string }[];
+  directCompetitors: Competitor[];
+  indirectCompetitors?: Competitor[];
   differentiators: string[];
+  marketPosition?: string;
 }
 
+export interface Competitor {
+  name: string;
+  websiteUrl?: string;
+  strengths?: string[];
+  weaknesses?: string[];
+}
+
+// Layer 7: Channel Strategy
 export interface ChannelStrategy {
   primaryChannel: string;
-  channels: { channel: string; enabled: boolean; priority: number }[];
+  channels: ChannelConfig[];
+  postingFrequency?: Record<string, string>;
 }
 
+export interface ChannelConfig {
+  channel: 'site' | 'blog' | 'instagram' | 'shortform';
+  enabled: boolean;
+  priority: number;
+  goal?: string;
+}
+
+// Layer 8: Creative Style
 export interface CreativeStyle {
-  copyStyle: string;
-  designTone: string;
+  copyStyle: string;   // 8 copy styles 중 선택
+  designTone: string;  // 6 design tones 중 선택
+  referenceUrls?: string[];
   moodKeywords?: string[];
+}
+
+// Crawl result type (used by Engine 1)
+export interface CrawlResult {
+  id: string;
+  projectId: string;
+  type: 'website' | 'sns' | 'blog' | 'news' | 'competitor';
+  rawData?: Record<string, unknown>;
+  analysis?: Record<string, unknown>;
+  crawledAt: string;
 }
