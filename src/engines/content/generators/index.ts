@@ -15,7 +15,12 @@ export type {
   InstagramCaptionResult,
 } from './instagram-generator';
 
-// TODO: Shortform generator (future phase)
-export async function generateShortformContent(brandDNA: unknown, options: unknown) {
-  throw new Error('Not implemented');
-}
+// Shortform generator (Phase 3 Session 1)
+export { generateShortformContent } from './shortform-generator';
+export type {
+  ShortformBrandContext,
+  ShortformGenerationContext,
+  ShortformScene,
+  ShortformScriptResult,
+  GenerateShortformParams,
+} from './shortform-generator';
